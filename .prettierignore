@@ -1,4 +1,5 @@
 .pnp.*js
 .yarn
 .yarnrc.yml
+src/generated.ts
 dist
