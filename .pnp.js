@@ -37,6 +37,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["@types/node", "npm:16.3.1"],
             ["ava", "npm:3.15.0"],
             ["prettier", "npm:2.3.2"],
             ["ts-node", "virtual:fdb7a6e8f671417bdc6c1cfec7fa1f6bc0b5bfd41be3e02545a60db0e0cb66934cf758d56a5705f055c67f976f908863ba80739215d7b0341b3688879142be9b#npm:10.1.0"],
@@ -197,6 +198,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@tynor/precis", "workspace:."],
+            ["@types/node", "npm:16.3.1"],
             ["ava", "npm:3.15.0"],
             ["prettier", "npm:2.3.2"],
             ["ts-node", "virtual:fdb7a6e8f671417bdc6c1cfec7fa1f6bc0b5bfd41be3e02545a60db0e0cb66934cf758d56a5705f055c67f976f908863ba80739215d7b0341b3688879142be9b#npm:10.1.0"],
@@ -3509,7 +3511,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.9"],
             ["@tsconfig/node14", "npm:1.0.1"],
             ["@tsconfig/node16", "npm:1.0.1"],
-            ["@types/node", null],
+            ["@types/node", "npm:16.3.1"],
             ["@types/swc__core", null],
             ["@types/swc__wasm", null],
             ["@types/types__node", null],
