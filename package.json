@@ -4,6 +4,9 @@
   "type": "module",
   "license": "MIT",
   "main": "./dist/index.js",
+  "scripts": {
+    "fmt": "prettier --write ."
+  },
   "devDependencies": {
     "prettier": "^2.3.2"
   }
