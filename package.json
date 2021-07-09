@@ -4,6 +4,7 @@
   "type": "module",
   "license": "MIT",
   "main": "./dist/index.js",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^2.3.2"
+  }
 }
