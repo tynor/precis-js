@@ -23,6 +23,24 @@ export const enforceUsernameCaseMapped = (s: string): string => {
   return s;
 };
 
+export const prepareUsernameCasePreserved = (s: string): string => {
+  s = [...s]
+    .map(c => (isFullHalf(c.codePointAt(0)!) ? c.normalize('NFKC') : c))
+    .join('');
+  ensureIdenifierClass(s);
+  return s;
+};
+
+export const enforceUsernameCasePreserved = (s: string): string => {
+  s = prepareUsernameCaseMapped(s);
+  s = s.normalize('NFC');
+  enforceBidiRule(s);
+  if (s.length === 0) {
+    throw new PrecisInvalidCharacterError(0);
+  }
+  return s;
+};
+
 const enforceBidiRule = (s: string): void => {
   const cs = [...s];
   let rtl = false;
