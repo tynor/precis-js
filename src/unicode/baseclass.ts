@@ -21,6 +21,7 @@ export const ensureIdenifierClass = (s: string): void => {
       case 'CONTEXTO':
       case 'CONTEXTJ':
         enforceContextRule(cs, i);
+        break;
       default:
         throw new PrecisInvalidCharacterError(i);
     }
