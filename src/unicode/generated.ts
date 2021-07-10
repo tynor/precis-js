@@ -151,7 +151,9 @@ export const BIDI_CLASS_VALUES = {
   22: 'PDI',
 } as const;
 
-export const RECORDS: ReadonlyArray<[keyof typeof DERIVED_PROPERTY_NAMES, keyof typeof JOINING_TYPE_VALUES, keyof typeof BIDI_CLASS_VALUES]> = [
+export type Record = [keyof typeof DERIVED_PROPERTY_NAMES, keyof typeof JOINING_TYPE_VALUES, keyof typeof BIDI_CLASS_VALUES];
+
+export const RECORDS: ReadonlyArray<Record> = [
   [0, 0, 0],
   [0, 0, 9],
   [0, 0, 11],

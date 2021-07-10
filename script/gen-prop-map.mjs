@@ -134,12 +134,14 @@ const main = async () => {
   p('} as const;');
   p();
   p(
-    'export const RECORDS: ReadonlyArray<[',
+    'export type Record = [',
     'keyof typeof DERIVED_PROPERTY_NAMES, ',
     'keyof typeof JOINING_TYPE_VALUES, ',
     'keyof typeof BIDI_CLASS_VALUES',
-    ']> = [',
+    '];',
   );
+  p();
+  p('export const RECORDS: ReadonlyArray<Record> = [');
   for (const [derived, jt, bidi] of records) {
     p(`  [${derived}, ${jt}, ${bidi}],`);
   }
