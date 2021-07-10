@@ -41,6 +41,18 @@ export const enforceUsernameCasePreserved = (s: string): string => {
   return s;
 };
 
+export const prepareOpaqueString = (s: string): string => {
+  ensureFreeformClass(s);
+  return s;
+};
+
+export const enforceOpaqueString = (s: string): string => {
+  s = prepareOpaqueString(s);
+  s = s.replace(/\p{Zs}/gu, ' ');
+  s = s.normalize('NFC');
+  return s;
+};
+
 const enforceBidiRule = (s: string): void => {
   const cs = [...s];
   let rtl = false;
