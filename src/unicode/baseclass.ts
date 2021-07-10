@@ -1,15 +1,6 @@
 import {PrecisInvalidCharacterError} from '../common';
 
-import {
-  DERIVED_PROPERTY_NAMES,
-  INDEX1,
-  INDEX2,
-  JOINING_TYPE_VALUES,
-  IS_VIRMA,
-  RECORDS,
-  SHIFT,
-} from './generated';
-import type {DerivedProperty, JoiningType, Record} from './generated';
+import {getDerivedProperty, getJoiningType, isVirma} from './prop';
 
 export const ensureIdenifierClass = (s: string): void => {
   const cs = [...s];
@@ -174,18 +165,4 @@ const after = (cs: ReadonlyArray<string>, i: number): string => {
     throw new PrecisInvalidCharacterError(i);
   }
   return cs[i + 1];
-};
-
-const isVirma = (cp: number): boolean => IS_VIRMA.has(cp);
-
-const getDerivedProperty = (cp: number): DerivedProperty =>
-  DERIVED_PROPERTY_NAMES[getRecord(cp)[0]];
-
-const getJoiningType = (cp: number): JoiningType =>
-  JOINING_TYPE_VALUES[getRecord(cp)[1]];
-
-const getRecord = (cp: number): Record => {
-  const i1 = INDEX1[cp >> SHIFT];
-  const i2 = INDEX2[(i1 << SHIFT) + (cp & ((1 << SHIFT) - 1))];
-  return RECORDS[i2];
 };
