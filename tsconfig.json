@@ -3,7 +3,7 @@
     "outDir": "dist",
     "strict": true,
     "target": "es6",
-    "lib": ["es6"],
+    "lib": ["dom", "es6"],
     "module": "commonjs",
     "esModuleInterop": true,
     "skipLibCheck": true,
