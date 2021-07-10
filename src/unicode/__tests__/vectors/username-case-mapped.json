@@ -1,0 +1,142 @@
+[
+  {
+    "Input": "6a756c696574406578616d706c652e636f6d",
+    "Output": "6a756c696574406578616d706c652e636f6d"
+  },
+  {
+    "Input": "6675737362616c6c",
+    "Output": "6675737362616c6c"
+  },
+  {
+    "Input": "6675c39f62616c6c",
+    "Output": "6675c39f62616c6c"
+  },
+  {
+    "Input": "cf80",
+    "Output": "cf80"
+  },
+  {
+    "Input": "cea3",
+    "Output": "cf83"
+  },
+  {
+    "Input": "cf83",
+    "Output": "cf83"
+  },
+  {
+    "Input": "cf82",
+    "Output": "cf82"
+  },
+  {
+    "Input": "49",
+    "Output": "69"
+  },
+  {
+    "Input": "cf92",
+    "Err": "rune"
+  },
+  {
+    "Input": "ceb0",
+    "Output": "ceb0"
+  },
+  {
+    "Input": "666f6f20626172",
+    "Err": "rune"
+  },
+  {
+    "Input": "e2999a",
+    "Err": "bidi"
+  },
+  {
+    "Input": "61",
+    "Output": "61"
+  },
+  {
+    "Input": "c2b2",
+    "Err": "bidi"
+  },
+  {
+    "Input": "09",
+    "Err": "rune"
+  },
+  {
+    "Input": "0a",
+    "Err": "rune"
+  },
+  {
+    "Input": "e29b96",
+    "Err": "bidi"
+  },
+  {
+    "Input": "e29bbf",
+    "Err": "bidi"
+  },
+  {
+    "Input": "efac80",
+    "Err": "rune"
+  },
+  {
+    "Input": "e19a80",
+    "Err": "bidi"
+  },
+  {
+    "Input": "20",
+    "Err": "rune"
+  },
+  {
+    "Input": "2020",
+    "Err": "rune"
+  },
+  {
+    "Input": "c785",
+    "Err": "rune"
+  },
+  {
+    "Input": "e19bae",
+    "Err": "rune"
+  },
+  {
+    "Input": "d288",
+    "Err": "bidi"
+  },
+  {
+    "Input": "41cc8a",
+    "Output": "c3a5"
+  },
+  {
+    "Input": "c385",
+    "Output": "c3a5"
+  },
+  {
+    "Input": "c3a7",
+    "Output": "c3a7"
+  },
+  {
+    "Input": "63cca7",
+    "Output": "c3a7"
+  },
+  {
+    "Input": "c598",
+    "Output": "c599"
+  },
+  {
+    "Input": "52cc8c",
+    "Output": "c599"
+  },
+  {
+    "Input": "e1b9a1",
+    "Output": "e1b9a1"
+  },
+  {
+    "Input": "d090",
+    "Output": "d0b0"
+  },
+  {
+    "Input": "efbca1efbca2",
+    "Output": "6162"
+  },
+  {
+    "Input": "d7a963",
+    "Err": "bidi"
+  }
+]
