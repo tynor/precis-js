@@ -16,10 +16,10 @@ export const enforceUsernameCaseMapped = (s: string): string => {
   s = prepareUsernameCaseMapped(s);
   s = s.toLowerCase();
   s = s.normalize('NFC');
-  enforceBidiRule(s);
   if (s.length === 0) {
     throw new PrecisInvalidCharacterError(0);
   }
+  enforceBidiRule(s);
   return s;
 };
 
@@ -34,10 +34,10 @@ export const prepareUsernameCasePreserved = (s: string): string => {
 export const enforceUsernameCasePreserved = (s: string): string => {
   s = prepareUsernameCaseMapped(s);
   s = s.normalize('NFC');
-  enforceBidiRule(s);
   if (s.length === 0) {
     throw new PrecisInvalidCharacterError(0);
   }
+  enforceBidiRule(s);
   return s;
 };
 
