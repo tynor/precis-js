@@ -1,11 +1,4 @@
-export class PrecisInvalidCharacterError extends Error {
-  public readonly index: number;
-
-  public constructor(index: number) {
-    super(`Invalid character at index ${index}`);
-    this.index = index;
-  }
-}
+import {PrecisInvalidCharacterError} from '../common';
 
 export const ensureIdenifierClass = (s: string): void => {
   const m = /[^\x21-\x7e]/.exec(s);

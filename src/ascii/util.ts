@@ -1,1 +1,1 @@
-export const isAscii = (s: string): boolean => !/[^\x00-\x7f]/.test(s);
+export const isAscii = (s: string): boolean => /^\p{ASCII}*$/u.test(s);
