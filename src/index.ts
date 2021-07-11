@@ -1,2 +1,1 @@
-export * as ascii from './ascii';
-export * as unicode from './unicode';
+export * from './profile';
