@@ -1,6 +1,6 @@
 {
   "name": "@tynor/precis",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Implementation of PRECIS (RFC8264, RFC8265)",
   "license": "MIT",
   "main": "./dist/cjs",
