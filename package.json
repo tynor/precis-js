@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Implementation of PRECIS (RFC8264, RFC8265)",
   "license": "MIT",
-  "main": "./dist",
+  "main": "./dist/index.js",
   "files": [
     "dist/**/*"
   ],
