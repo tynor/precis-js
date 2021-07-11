@@ -20,7 +20,7 @@ const joiningFile = relativeFile('../data/DerivedJoiningType-13-0-0.txt');
 
 const eawFile = relativeFile('../data/EastAsianWidth-13.0.0.txt');
 
-const outFile = relativeFile('../src/unicode/generated.ts');
+const outFile = relativeFile('../src/generated.ts');
 
 const nchars = 0x10ffff;
 
@@ -150,6 +150,10 @@ const main = async () => {
     'keyof typeof BIDI_CLASS_VALUES',
     '];',
   );
+  p();
+  p('export const DERIVED_PROPERTY_INDEX = 0;');
+  p('export const JOINING_TYPE_INDEX = 1;');
+  p('export const BIDI_CLASS_INDEX = 2;');
   p();
   p('export const RECORDS: ReadonlyArray<Record> = [');
   for (const [derived, jt, bidi] of records) {

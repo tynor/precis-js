@@ -1,44 +1,53 @@
-import {PrecisInvalidCharacterError} from '../common';
-
+import {InvalidCodepointError} from './error';
 import {getDerivedProperty, getJoiningType, isVirma} from './prop';
+import {codepoint} from './util';
 
-export const ensureIdenifierClass = (s: string): void => {
-  const cs = [...s];
+export const validateIdentifierClass = (text: string): void => {
+  const cs = [...text];
   cs.forEach((c, i) => {
-    const cp = c.codePointAt(0)!;
+    const cp = codepoint(c);
     switch (getDerivedProperty(cp)) {
       case 'PVALID':
         return;
       case 'CONTEXTO':
       case 'CONTEXTJ':
-        enforceContextRule(cs, i);
+        enforceContextRule(text, cs, i);
         break;
       default:
-        throw new PrecisInvalidCharacterError(i);
+        throw new InvalidCodepointError(text, i);
     }
   });
 };
 
-export const ensureFreeformClass = (s: string): void => {
-  const cs = [...s];
+export const validateFreeformClass = (text: string): void => {
+  const cs = [...text];
   cs.forEach((c, i) => {
-    const cp = c.codePointAt(0)!;
+    const cp = codepoint(c);
     switch (getDerivedProperty(cp)) {
       case 'PVALID':
       case 'FREE_PVAL':
         return;
       case 'CONTEXTO':
       case 'CONTEXTJ':
-        enforceContextRule(cs, i);
+        enforceContextRule(text, cs, i);
+        break;
       default:
-        throw new PrecisInvalidCharacterError(i);
+        throw new InvalidCodepointError(text, i);
     }
   });
 };
 
-type ContextFn = (cs: ReadonlyArray<string>, i: number) => boolean;
+type ContextFn = (
+  cs: ReadonlyArray<string>,
+  i: number,
+  text: string,
+) => boolean;
 
-const enforceContextRule = (cs: ReadonlyArray<string>, i: number): void => {
+const enforceContextRule = (
+  text: string,
+  cs: ReadonlyArray<string>,
+  i: number,
+): void => {
   const cp = cs[i].codePointAt(0)!;
   let fn;
   switch (cp) {
@@ -86,26 +95,26 @@ const enforceContextRule = (cs: ReadonlyArray<string>, i: number): void => {
       fn = contextExtendedArabicIndicDigits;
       break;
   }
-  if (fn === void 0 || !fn(cs, i)) {
-    throw new PrecisInvalidCharacterError(i);
+  if (fn === void 0 || !fn(cs, i, text)) {
+    throw new InvalidCodepointError(text, i);
   }
 };
 
-const contextZeroWidthNonJoiner: ContextFn = (cs, i) =>
-  isVirma(before(cs, i).codePointAt(0)!) ||
+const contextZeroWidthNonJoiner: ContextFn = (cs, i, text) =>
+  isVirma(before(text, cs, i).codePointAt(0)!) ||
   (nonJoinerValidBefore(cs, i) && nonJoinerValidAfter(cs, i));
 
-const contextZeroWidthJoiner: ContextFn = (cs, i) =>
-  isVirma(before(cs, i).codePointAt(0)!);
+const contextZeroWidthJoiner: ContextFn = (cs, i, text) =>
+  isVirma(before(text, cs, i).codePointAt(0)!);
 
-const contextMiddleDot: ContextFn = (cs, i) =>
-  before(cs, i) === '\u006c' && after(cs, i) === '\u006c';
+const contextMiddleDot: ContextFn = (cs, i, text) =>
+  before(text, cs, i) === '\u006c' && after(text, cs, i) === '\u006c';
 
-const contextGreekKeraia: ContextFn = (cs, i) =>
-  /^\p{Script=Hebrew}$/u.test(before(cs, i));
+const contextGreekKeraia: ContextFn = (cs, i, text) =>
+  /^\p{Script=Hebrew}$/u.test(before(text, cs, i));
 
-const contextHebrewPunctuation: ContextFn = (cs, i) =>
-  /^\p{Script=Hebrew}$/u.test(before(cs, i));
+const contextHebrewPunctuation: ContextFn = (cs, i, text) =>
+  /^\p{Script=Hebrew}$/u.test(before(text, cs, i));
 
 const contextKatakanaMiddleDot: ContextFn = cs =>
   cs.every(c =>
@@ -153,16 +162,16 @@ const nonJoinerValidAfter = (cs: ReadonlyArray<string>, i: number): boolean => {
   return false;
 };
 
-const before = (cs: ReadonlyArray<string>, i: number): string => {
+const before = (text: string, cs: ReadonlyArray<string>, i: number): string => {
   if (i === 0) {
-    throw new PrecisInvalidCharacterError(i);
+    throw new InvalidCodepointError(text, i);
   }
   return cs[i - 1];
 };
 
-const after = (cs: ReadonlyArray<string>, i: number): string => {
+const after = (text: string, cs: ReadonlyArray<string>, i: number): string => {
   if (i === cs.length - 1) {
-    throw new PrecisInvalidCharacterError(i);
+    throw new InvalidCodepointError(text, i);
   }
   return cs[i + 1];
 };
