@@ -1,5 +1,5 @@
 .pnp.*js
 .yarn
 .yarnrc.yml
-src/unicode/generated.ts
+src/generated.ts
 dist

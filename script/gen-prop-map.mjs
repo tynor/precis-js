@@ -20,7 +20,7 @@ const joiningFile = relativeFile('../data/DerivedJoiningType-13-0-0.txt');
 
 const eawFile = relativeFile('../data/EastAsianWidth-13.0.0.txt');
 
-const outFile = relativeFile('../src/unicode/generated.ts');
+const outFile = relativeFile('../src/generated.ts');
 
 const nchars = 0x10ffff;
 
