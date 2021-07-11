@@ -151,6 +151,10 @@ const main = async () => {
     '];',
   );
   p();
+  p('export const DERIVED_PROPERTY_INDEX = 0;');
+  p('export const JOINING_TYPE_INDEX = 1;');
+  p('export const BIDI_CLASS_INDEX = 2;');
+  p();
   p('export const RECORDS: ReadonlyArray<Record> = [');
   for (const [derived, jt, bidi] of records) {
     p(`  [${derived}, ${jt}, ${bidi}],`);
