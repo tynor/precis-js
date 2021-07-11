@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "description": "Implementation of PRECIS (RFC8264, RFC8265)",
   "license": "MIT",
-  "main": "./dist/cjs",
-  "module": "./dist/mjs",
+  "main": "./dist",
   "files": [
     "dist/**/*"
   ],
   "scripts": {
-    "build": "./script/build.sh",
-    "test": "TS_NODE_PROJECT=tsconfig.ava.json ava",
+    "build": "tsc",
+    "test": "ava",
     "fmt": "prettier --write ."
   },
   "devDependencies": {
@@ -28,7 +27,7 @@
       "ts"
     ],
     "require": [
-      "ts-node/register"
+      "ts-node/register/transpile-only"
     ]
   }
 }
