@@ -8,7 +8,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "ava",
+    "test": "TS_NODE_PROJECT=tsconfig.ava.json ava",
     "fmt": "prettier --write ."
   },
   "devDependencies": {
