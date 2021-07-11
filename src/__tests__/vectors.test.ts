@@ -4,9 +4,7 @@ import * as path from 'path';
 import test from 'ava';
 import type {Macro} from 'ava';
 
-import {PrecisInvalidCharacterError} from '../../common';
-
-import {enforceUsernameCaseMapped} from '../profile';
+import {UsernameCaseMapped} from '../profile';
 
 type EnforceVector = {
   Input: string;
@@ -15,11 +13,9 @@ type EnforceVector = {
 const enforceUsernameCaseMappedMacro: Macro<[EnforceVector]> = (t, r) => {
   const input = fromUTF8(r.Input);
   if ('Err' in r) {
-    t.throws(() => enforceUsernameCaseMapped(input), {
-      instanceOf: PrecisInvalidCharacterError,
-    });
+    t.throws(() => UsernameCaseMapped.enforce(input));
   } else {
-    t.is(enforceUsernameCaseMapped(input), fromUTF8(r.Output));
+    t.is(UsernameCaseMapped.enforce(input), fromUTF8(r.Output));
   }
 };
 

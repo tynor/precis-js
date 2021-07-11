@@ -1,38 +1,69 @@
-import * as ascii from './ascii';
-import type {EnforceFn} from './common';
-import type * as unicode from './unicode';
+import {validateFreeformClass, validateIdentifierClass} from './baseclass';
+import {validateBidiRule} from './bidi';
+import {EmptyStringError} from './error';
+import {widthMappingRule} from './width';
 
-export type AsyncEnforce = (s: string) => Promise<string>;
+export type Profile = Readonly<{
+  prepare: (text: string) => string;
+  enforce: (text: string) => string;
+}>;
 
-export type EnforceProfiles = {
-  UsernameCaseMapped: AsyncEnforce;
-  UsernameCasePreserved: AsyncEnforce;
-  OpaqueString: AsyncEnforce;
+const prepareUsernameCaseMapped = (text: string): string => {
+  text = widthMappingRule(text);
+  validateIdentifierClass(text);
+  return text;
 };
 
-const getProfiles = (): EnforceProfiles => {
-  let unicodep: Promise<typeof unicode> | undefined;
-  const getUnicode = () => {
-    if (unicodep === void 0) {
-      unicodep = import('./unicode');
-    }
-    return unicodep;
-  };
-  const tryAscii =
-    (a: EnforceFn, u: AsyncEnforce): AsyncEnforce =>
-    s =>
-      ascii.isAscii(s) ? Promise.resolve(a(s)) : u(s);
-  return {
-    UsernameCaseMapped: tryAscii(ascii.enforceUsernameCaseMapped, s =>
-      getUnicode().then(unicode => unicode.enforceUsernameCaseMapped(s)),
-    ),
-    UsernameCasePreserved: tryAscii(ascii.enforceUsernameCasePreserved, s =>
-      getUnicode().then(unicode => unicode.enforceUsernameCasePreserved(s)),
-    ),
-    OpaqueString: tryAscii(ascii.enforceOpaqueString, s =>
-      getUnicode().then(unicode => unicode.enforceOpaqueString(s)),
-    ),
-  };
+const enforceUsernameCaseMapped = (text: string): string => {
+  text = prepareUsernameCaseMapped(text);
+  text = text.toLowerCase();
+  text = text.normalize('NFC');
+  validateBidiRule(text);
+  if (text.length === 0) {
+    throw new EmptyStringError(text);
+  }
+  return text;
 };
 
-export const profiles = getProfiles();
+export const UsernameCaseMapped: Profile = {
+  prepare: prepareUsernameCaseMapped,
+  enforce: enforceUsernameCaseMapped,
+};
+
+const prepareUsernameCasePreserved = (text: string): string => {
+  text = widthMappingRule(text);
+  validateIdentifierClass(text);
+  return text;
+};
+
+const enforceUsernameCasePreserved = (text: string): string => {
+  text = prepareUsernameCasePreserved(text);
+  text = text.normalize('NFC');
+  validateBidiRule(text);
+  if (text.length === 0) {
+    throw new EmptyStringError(text);
+  }
+  return text;
+};
+
+export const UsernameCasePreserved: Profile = {
+  prepare: prepareUsernameCasePreserved,
+  enforce: enforceUsernameCasePreserved,
+};
+
+const prepareOpaqueString = (text: string): string => {
+  validateFreeformClass(text);
+  return text;
+};
+
+const enforceOpaqueString = (text: string): string => {
+  text = prepareOpaqueString(text);
+  text = text.replace(/\p{Zs}/gu, ' ');
+  text = text.normalize('NFC');
+  return text;
+};
+
+export const OpaqueString: Profile = {
+  prepare: prepareOpaqueString,
+  enforce: enforceOpaqueString,
+};
