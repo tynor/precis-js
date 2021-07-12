@@ -48,7 +48,7 @@ const enforceContextRule = (
   cs: ReadonlyArray<string>,
   i: number,
 ): void => {
-  const cp = cs[i].codePointAt(0)!;
+  const cp = codepoint(cs[i]);
   let fn;
   switch (cp) {
     case 0x200c:
@@ -101,11 +101,11 @@ const enforceContextRule = (
 };
 
 const contextZeroWidthNonJoiner: ContextFn = (cs, i, text) =>
-  isVirma(before(text, cs, i).codePointAt(0)!) ||
+  isVirma(codepoint(before(text, cs, i))) ||
   (nonJoinerValidBefore(cs, i) && nonJoinerValidAfter(cs, i));
 
 const contextZeroWidthJoiner: ContextFn = (cs, i, text) =>
-  isVirma(before(text, cs, i).codePointAt(0)!);
+  isVirma(codepoint(before(text, cs, i)));
 
 const contextMiddleDot: ContextFn = (cs, i, text) =>
   before(text, cs, i) === '\u006c' && after(text, cs, i) === '\u006c';
@@ -132,7 +132,7 @@ const nonJoinerValidBefore = (
   i: number,
 ): boolean => {
   for (let j = i - 1; j >= 0; --j) {
-    const t = getJoiningType(cs[j].codePointAt(0)!);
+    const t = getJoiningType(codepoint(cs[j]));
     switch (t) {
       case 'T':
         continue;
@@ -148,7 +148,7 @@ const nonJoinerValidBefore = (
 
 const nonJoinerValidAfter = (cs: ReadonlyArray<string>, i: number): boolean => {
   for (let j = i + 1; j < cs.length; ++j) {
-    const t = getJoiningType(cs[j].codePointAt(0)!);
+    const t = getJoiningType(codepoint(cs[j]));
     switch (t) {
       case 'T':
         continue;
