@@ -35,7 +35,7 @@ const hasRTL = (cs: ReadonlyArray<string>): boolean =>
 
 const validateLTR = (text: string, cs: ReadonlyArray<string>): void => {
   cs.forEach((c, i) => {
-    const bc = getBidiClass(c.codePointAt(0)!);
+    const bc = getBidiClass(codepoint(c));
     switch (bc) {
       case 'L':
       case 'EN':
@@ -51,7 +51,7 @@ const validateLTR = (text: string, cs: ReadonlyArray<string>): void => {
     }
   });
   for (let i = cs.length - 1; i >= 0; ++i) {
-    const bc = getBidiClass(cs[i].codePointAt(0)!);
+    const bc = getBidiClass(codepoint(cs[i]));
     switch (bc) {
       case 'NSM':
         continue;
