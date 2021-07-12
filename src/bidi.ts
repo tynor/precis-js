@@ -3,10 +3,10 @@ import {getBidiClass} from './prop';
 import {codepoint} from './util';
 
 export const validateBidiRule = (text: string): void => {
-  if (text.length === 0) {
-    throw new EmptyStringError(text);
-  }
   const cs = [...text];
+  if (!hasRTL(cs)) {
+    return;
+  }
   let validate = validateLTR;
   switch (getBidiClass(codepoint(cs[0]))) {
     case 'R':
@@ -20,6 +20,18 @@ export const validateBidiRule = (text: string): void => {
   }
   validate(text, cs);
 };
+
+const hasRTL = (cs: ReadonlyArray<string>): boolean =>
+  cs.some(c => {
+    switch (getBidiClass(codepoint(c))) {
+      case 'R':
+      case 'AL':
+      case 'AN':
+        return true;
+      default:
+        return false;
+    }
+  });
 
 const validateLTR = (text: string, cs: ReadonlyArray<string>): void => {
   cs.forEach((c, i) => {
